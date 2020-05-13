@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 
     //Variable que nos indica en que estado del juego nos encontramos
     public GameState currentGameState = GameState.menu;
+    public Canvas menuCanvas, gameCanvas, gameOverCanvas;
+    public int collectedObjects = 0;
 
     private void Awake() {
         sharedInstance = this;
@@ -33,6 +35,10 @@ public class GameManager : MonoBehaviour {
 
         if(Input.GetButtonDown("Menu")) {
             BackToMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            ExitGame();
         }
     }
 
@@ -52,20 +58,46 @@ public class GameManager : MonoBehaviour {
         SetGameState(GameState.menu);
     }
 
+     public void ExitGame()
+    {
+        #if UNITY_EDITOR
+             UnityEditor.EditorApplication.isPlaying = false;
+        #else
+             Application.Quit();
+        #endif
+    }
+
     //Función encargada de cambiar el estado del juego
     void SetGameState(GameState newGameState) {
 
         if(newGameState == GameState.menu){
 
+            menuCanvas.enabled = true;
+            gameCanvas.enabled = false;
+            gameOverCanvas.enabled = false;
+
         } else if(newGameState == GameState.inGame){
 
+            menuCanvas.enabled = false;
+            gameCanvas.enabled = true;
+            gameOverCanvas.enabled = false;
+
+
         } else if(newGameState == GameState.gameOver){
+
+            menuCanvas.enabled = false;
+            gameCanvas.enabled = false;
+            gameOverCanvas.enabled = true;
 
         }
 
         //Asignamos el estado del juego actual al que nos ha llegado por parámetro
         this.currentGameState = newGameState;
 
+    }
+
+    public void CollectObject(int objectValue){
+        this.collectedObjects += objectValue;
     }
 
 }

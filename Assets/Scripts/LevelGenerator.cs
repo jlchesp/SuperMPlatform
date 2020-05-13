@@ -58,7 +58,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     public void GenerateInitialBlocks(){
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 5; i++){
             AddLevelBlock();
         }
     }
