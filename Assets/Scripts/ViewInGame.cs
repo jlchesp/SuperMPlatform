@@ -18,13 +18,13 @@ public class ViewInGame : MonoBehaviour
             this.collectableLabel.text = currentObjects.ToString();
         }
 
-        // if(GameManager.sharedInstance.currentGameState == GameState.inGame){
-        //     float travelledDistance = PlayerController.sharedInstance.GetDistance();
-        //     this.scoreLabel.text = "Score\n" + travelledDistance.ToString("f1");
+        if(GameManager.sharedInstance.currentGameState == GameState.inGame){
+            float travelledDistance = PlayerController.sharedInstance.GetDistance();
+            this.scoreLabel.text = "Score\n" + travelledDistance.ToString("f1");
 
-        //     float maxscore = PlayerPrefs.GetFloat("maxscore", 0);
-        //     this.maxscoreLabel.text = "MaxScore\n" + maxscore.ToString("f1");
-        // }
+            float maxscore = PlayerPrefs.GetFloat("maxscore", 0);
+            this.maxscoreLabel.text = "MaxScore\n" + maxscore.ToString("f1");
+        }
 
 	}
 }

@@ -53,12 +53,12 @@ public class Collectable : MonoBehaviour {
             case CollectableType.money:
                 GameManager.sharedInstance.CollectObject(value);
                 break;
-            // case CollectableType.healthPotion:
-            //     PlayerController.sharedInstance.CollectHealth(value);
-            //     break;
-            // case CollectableType.manaPotion:
-            //     PlayerController.sharedInstance.CollectMana(value);
-            //     break;
+            case CollectableType.healthPotion:
+                PlayerController.sharedInstance.CollectHealth(value);
+                break;
+            case CollectableType.manaPotion:
+                PlayerController.sharedInstance.CollectMana(value);
+                break;
         }
     }
 

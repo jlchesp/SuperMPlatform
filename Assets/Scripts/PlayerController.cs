@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float runningSpeed = 1.5f;
     private Rigidbody2D rigidBody; //Esta variable llama al componente Rigidbody2D del personaje
     private Vector3 startPosition;
+    private int healthPoints, manaPoints;
 
     //Funcioón para configurar todas las variables antes de empezar el juego
     void Awake() {
@@ -88,6 +89,37 @@ public class PlayerController : MonoBehaviour
     public void Kill() {
         GameManager.sharedInstance.GameOver();
         this.animator.SetBool("isAlive", false);
+
+        float currentMaxScore = PlayerPrefs.GetFloat("maxscore", 0);
+
+        if (currentMaxScore < this.GetDistance()){
+            PlayerPrefs.SetFloat("maxscore", this.GetDistance());
+        }
+
+        //StopCoroutine("TirePlayer");
+    }
+
+    public float GetDistance(){
+        float travelledDistance = Vector2.Distance(new Vector2(startPosition.x,0),
+                                                   new Vector2(this.transform.position.x,0)
+                                                  );
+        return travelledDistance; //this.transform.position.x - startPosition.x
+    }
+
+    public void CollectHealth(int points){
+        this.healthPoints += points;
+
+        if(this.healthPoints >= MAX_HEALTH){
+            this.healthPoints = MAX_HEALTH;
+        }
+    }
+
+    public void CollectMana(int points){
+        this.manaPoints += points;
+
+        if(this.manaPoints >= MAX_MANA){
+            this.manaPoints = MAX_MANA;
+        }
     }
 
 }
